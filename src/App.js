@@ -1,12 +1,13 @@
+import { RouterProvider } from 'react-router-dom';
 import './App.css';
-import ApplyHere from './Components/ApplyHere';
+import { router } from './Router/Routes';
 
 function App() {
 
  
   return (
     <div className="App">
-      <ApplyHere></ApplyHere>
+     <RouterProvider router={router}></RouterProvider>
     </div>
   );
 }

@@ -9,7 +9,6 @@ const AuthProvider = ({children}) => {
       domain={domain}
       clientId={clientId}
       redirectUri={window.location.origin}
-
     >
       {children}
     </Auth0Provider>
