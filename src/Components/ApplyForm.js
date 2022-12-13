@@ -56,7 +56,7 @@ const ApplyForm = ({user}) => {
             phone : data.phone,
             url : data.url,
             skills : data.checked,
-            cv : `${viewPdf}`,
+            cv : `${pdfFile}`,
             img : `${user?.picture}`
 
         }
