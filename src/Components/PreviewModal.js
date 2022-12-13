@@ -4,10 +4,37 @@ import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import { Worker } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
+import { useNavigate } from "react-router-dom";
 
-const PreviewModal = ({ setShowModal, viewPdf, picture, userData }) => {
+const PreviewModal = ({ setShowModal, viewPdf, userData }) => {
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
-const {name, email, skills} = userData;
+const {name, skills} = userData;
+const navigate = useNavigate()
+
+
+
+
+const saveUser = () => {
+    fetch("https://assignment-server-towhid7667.vercel.app/userInfo",
+                {
+                  method: "POST",
+                  headers: {
+                    "content-type": "application/json",
+                  },
+                  body: JSON.stringify(userData),
+                })
+                .then(res => res.json())
+                    .then(result =>{
+                        if(result.acknowledged){
+                            navigate("/success")
+                            setShowModal(false);
+                        }
+                       
+
+                      
+                    })
+}
+
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none py-10">
@@ -42,7 +69,7 @@ const {name, email, skills} = userData;
                 <div className="flex flex-col justify-center items-center p-10 border-black border-2 h-56">
                   <div className="avatar">
                     <div className="w-24 rounded-full">
-                      <img src={picture} alt=''/>
+                      <img src={userData?.img} alt=''/>
                     </div>
                     <hr />
                   </div>
@@ -84,7 +111,7 @@ const {name, email, skills} = userData;
               {!viewPdf && <>No pdf file selected</>}
             </div>
             {/*footer*/}
-            <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+            <div className="flex items-center justify-center p-6 border-t border-solid border-slate-200 rounded-b">
               <button
                 className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
@@ -93,9 +120,9 @@ const {name, email, skills} = userData;
                 Close
               </button>
               <button
-                className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                className="bg-red-400 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
-                onClick={() => setShowModal(false)}
+                onClick={() => {saveUser()}}
               >
                 Save Changes
               </button>

@@ -50,12 +50,14 @@ const ApplyForm = ({user}) => {
         // console.log(data.checked)
 
         const newUser = {
+            
             name : data.name,
             email : data.email,
             phone : data.phone,
             url : data.url,
             skills : data.checked,
-            cv : `${viewPdf}`
+            cv : `${viewPdf}`,
+            img : `${user?.picture}`
 
         }
         console.log(newUser)
@@ -66,7 +68,7 @@ console.log(userData)
     // const skills = ["PHP", "PYTHON", "SQL",  "HTML",  "CSS",  "JAVASCRIPT",  "REACT"];
     const skills = "PHP PYTHON SQL HTML CSS JAVASCRIPT REACT".split(" ")
     return (
-        <div className='flex flex-col justify-center items-center lg:w-6/12 md:w-8/12 w-11/12 p-10 border shadow-sm  rounded-lg my-10'>
+        <div className='flex flex-col justify-center items-center  p-10 border shadow-sm  rounded-lg my-10'>
       <h1 className='text-red-400 text-2xl font-semibold'>Apply For Position</h1>
       <form onSubmit={handleSubmit(onSubmit)}  className='  flex flex-col items-start justify-center'>
         <div>
@@ -108,7 +110,7 @@ console.log(userData)
         
       </form>
       {showModal &&
-            <PreviewModal setShowModal={setShowModal} picture = {user?.picture} userData = {userData} viewPdf ={viewPdf}></PreviewModal>
+            <PreviewModal setShowModal={setShowModal}  userData = {userData} viewPdf ={viewPdf}></PreviewModal>
       }
       
     </div>
