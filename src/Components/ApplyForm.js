@@ -3,7 +3,7 @@ import PreviewModal from './PreviewModal';
 import { useForm } from 'react-hook-form';
 const ApplyForm = ({user}) => {
 
-    const [userdata, setUserData] = useState({})
+    const [userData, setUserData] = useState({})
     const { register, handleSubmit,  } = useForm();
     const [pdfFile, setPdfFile]=useState(null);
     const [pdfFileError, setPdfFileError]=useState('');
@@ -46,10 +46,23 @@ const ApplyForm = ({user}) => {
           }
         
       
-        console.log(data)
+        // console.log(data.name)
+        // console.log(data.checked)
+
+        const newUser = {
+            name : data.name,
+            email : data.email,
+            phone : data.phone,
+            url : data.url,
+            skills : data.checked,
+            cv : `${viewPdf}`
+
+        }
+        console.log(newUser)
+        setUserData(newUser)
         setShowModal(true)
     }
-
+console.log(userData)
     // const skills = ["PHP", "PYTHON", "SQL",  "HTML",  "CSS",  "JAVASCRIPT",  "REACT"];
     const skills = "PHP PYTHON SQL HTML CSS JAVASCRIPT REACT".split(" ")
     return (
@@ -71,7 +84,7 @@ const ApplyForm = ({user}) => {
         </div>
         <div className='flex items-center gap-3 my-3'>
           <label htmlFor="linkedin">Linkedin</label>
-          <input {...register("url", { required: true })} type="url"  placeholder="Type Your Linkedin URL" className='input input-bordered w-full'/>
+          <input {...register("url", { required: true })} type="text"  placeholder="Type Your Linkedin URL" className='input input-bordered w-full'/>
         </div>
         </div>
         <p>
@@ -95,7 +108,7 @@ const ApplyForm = ({user}) => {
         
       </form>
       {showModal &&
-            <PreviewModal setShowModal={setShowModal} picture = {user?.picture} viewPdf ={viewPdf}></PreviewModal>
+            <PreviewModal setShowModal={setShowModal} picture = {user?.picture} userData = {userData} viewPdf ={viewPdf}></PreviewModal>
       }
       
     </div>
